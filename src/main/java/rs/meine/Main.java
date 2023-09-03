@@ -24,12 +24,6 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        String message = chatRequest("Generate a short greeting of the player " + event.getPlayer().getName() + " on the Minecraft server.");
-        getServer().broadcastMessage(message);
-    }
-
-    @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         String deathMessage = event.getDeathMessage();
         String message = chatRequest("Generate a funny short message about the death of " + event.getEntity().getName() + " on the Minecraft server. He died because " + deathMessage);
