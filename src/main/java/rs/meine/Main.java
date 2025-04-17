@@ -91,8 +91,15 @@ public class Main extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         String deathMessage = event.getDeathMessage();
+        Player player = event.getEntity();
+        String inventorySummary = getInventorySummary(player);
+        int playerLevel = player.getLevel();
+        
         getScheduler().runTaskAsynchronously(this, () -> {
-            String message = chatRequest("Generate a funny short message about the death of " + event.getEntity().getName() + " on the Minecraft server. He died because " + deathMessage);
+            String message = chatRequest("Generate a funny short message about the death of " + player.getName() + 
+                                        " on the Minecraft server. He died because " + deathMessage + 
+                                        ". His inventory contained: " + inventorySummary + 
+                                        ". He was at level " + playerLevel + ".");
             getScheduler().runTask(this, () -> {
                 getServer().broadcastMessage(message);
             });
