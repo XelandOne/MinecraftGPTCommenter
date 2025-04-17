@@ -46,9 +46,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.theokanning.openai-gpt3-java</groupId>
-            <artifactId>service</artifactId>
-            <version>0.16.0</version>
+            <groupId>com.openai</groupId>
+            <artifactId>openai-java</artifactId>
+            <version>1.3.0</version>
         </dependency>
     </dependencies>
 

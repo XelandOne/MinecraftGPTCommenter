@@ -1,3 +1,10 @@
 name: MinecraftGPTCommenter
 version: 1.0
 main: rs.meine.Main
+commands:
+  chatgpt:
+    description: Chat with ChatGPT
+    usage: "/chatgpt <message>"
+  chat:
+    description: Chat with ChatGPT
+    usage: "/chat <message>"
