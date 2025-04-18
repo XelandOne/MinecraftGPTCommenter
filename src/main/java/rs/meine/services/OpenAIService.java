@@ -2,21 +2,17 @@ package rs.meine.services;
 
 import com.openai.client.OpenAIClient;
 import com.openai.client.okhttp.OpenAIOkHttpClient;
-import com.openai.models.ChatModel;
 import com.openai.models.chat.completions.ChatCompletion;
 import com.openai.models.chat.completions.ChatCompletionCreateParams;
-import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import rs.meine.Main;
 import rs.meine.config.ConfigManager;
 import rs.meine.models.ChatMessage;
 import rs.meine.models.RateLimitInfo;
@@ -78,7 +74,7 @@ public class OpenAIService {
                 .addUserMessage(prompt)
                 .model(configManager.getModel())
                 .temperature(configManager.getTemperature())
-                .maxTokens(configManager.getMaxTokens())
+                .maxCompletionTokens(configManager.getMaxTokens())
                 .build();
             
             ChatCompletion chatCompletion = client.chat().completions().create(params);
@@ -176,7 +172,7 @@ public class OpenAIService {
                 .addUserMessage(message)
                 .model(configManager.getModel())
                 .temperature(configManager.getTemperature())
-                .maxTokens(configManager.getMaxTokens())
+                .maxCompletionTokens(configManager.getMaxTokens())
                 .build();
             
             ChatCompletion chatCompletion = client.chat().completions().create(params);

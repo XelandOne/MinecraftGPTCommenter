@@ -3,7 +3,6 @@ package rs.meine;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import rs.meine.commands.AdminCommandExecutor;
 import rs.meine.commands.ChatCommandExecutor;
 import rs.meine.config.ConfigManager;
