@@ -1,10 +1,29 @@
 name: MinecraftGPTCommenter
-version: 1.0
+version: 1.1.0
 main: rs.meine.Main
+api-version: 1.20
+description: A Minecraft plugin that uses OpenAI's GPT models to generate dynamic and contextual responses
+author: XelandOne
+
 commands:
   chatgpt:
-    description: Chat with ChatGPT
+    description: Chat with the AI to get a response
     usage: "/chatgpt <message>"
+    aliases: [ai, gpt]
+    permission: minecraftgptcommenter.chat
   chat:
-    description: Chat with ChatGPT
+    description: Alias for chatgpt command
     usage: "/chat <message>"
+    permission: minecraftgptcommenter.chat
+  gptadmin:
+    description: Administrative commands for MinecraftGPTCommenter
+    usage: "/gptadmin <reload|status|reset|help>"
+    permission: minecraftgptcommenter.admin
+
+permissions:
+  minecraftgptcommenter.chat:
+    description: Allows the use of chat commands
+    default: true
+  minecraftgptcommenter.admin:
+    description: Allows the use of administrative commands
+    default: op

@@ -6,6 +6,9 @@ target/
 # Environment variables
 .env
 
+# Config
+config.yml
+
 ### IntelliJ IDEA ###
 .idea/
 .idea/modules.xml
