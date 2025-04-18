@@ -25,7 +25,7 @@ import static org.bukkit.Bukkit.getScheduler;
 
 public class Main extends JavaPlugin implements Listener {
     private OpenAIClient client = OpenAIOkHttpClient.builder()
-        .apiKey("YOUR_OPENAI_API_KEY ")
+        .apiKey(System.getenv("OPENAI_API_KEY"))
         .build();
         
     // Store last 5 messages for each player
