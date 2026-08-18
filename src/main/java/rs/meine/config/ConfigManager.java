@@ -14,7 +14,7 @@ public class ConfigManager {
     
     // Default values
     private static final String DEFAULT_API_KEY = "";
-    private static final String DEFAULT_MODEL = "gpt-4o";
+    private static final String DEFAULT_MODEL = "gpt-5.6-luna";
     private static final double DEFAULT_TEMPERATURE = 1.0;
     private static final int DEFAULT_MAX_HISTORY = 5;
     private static final int DEFAULT_MAX_TOKENS = 150;
@@ -53,7 +53,9 @@ public class ConfigManager {
         
         config.addDefault("features.player_join", true);
         config.addDefault("features.player_death", true);
+        config.addDefault("features.player_achievement", true);
         config.addDefault("features.player_chat", true);
+        config.addDefault("features.command_generation", true);
         
         config.options().copyDefaults(true);
         plugin.saveConfig();

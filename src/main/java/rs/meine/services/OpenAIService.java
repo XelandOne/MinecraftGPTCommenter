@@ -86,6 +86,56 @@ public class OpenAIService {
     }
     
     /**
+     * Generates a Minecraft command from natural language input
+     * @param prompt The natural language description of what the user wants to do
+     * @return The generated Minecraft command
+     */
+    public String generateMinecraftCommand(String prompt) {
+        if (!isInitialized || client == null) {
+            return "Error: OpenAI service is not properly initialized. Check server logs.";
+        }
+        
+        try {
+            String systemPrompt = 
+                "You are a Minecraft command generator. Convert natural language descriptions into valid Minecraft commands. " +
+                "Only output the exact command to run, nothing else. " +
+                "Make sure to format commands properly with appropriate syntax, including proper use of selectors (@p, @a, @e, etc), " +
+                "coordinates, and proper escaping of text for JSON components. " +
+                "If the request seems ambiguous, generate the most reasonable command that seems to match the intent. " +
+                "Do not include any explanation, just output the command. " +
+                "Always start commands with '/'. " +
+                "Examples: " +
+                "User: give me a diamond sword with sharpness 5 named Excalibur " +
+                "Output: /give @p diamond_sword{display:{Name:'{\"text\":\"Excalibur\"}'},Enchantments:[{id:\"minecraft:sharpness\",lvl:5}]} 1 " +
+                "User: teleport me to coordinates 100 64 -200 " +
+                "Output: /tp @p 100 64 -200 " +
+                "User: kill all zombies in a 50 block radius " +
+                "Output: /kill @e[type=zombie,distance=..50]";
+            
+            ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
+                .addSystemMessage(systemPrompt)
+                .addUserMessage(prompt)
+                .model(configManager.getModel())
+                .temperature(0.3) // Lower temperature for more predictable outputs
+                .maxCompletionTokens(configManager.getMaxTokens())
+                .build();
+            
+            ChatCompletion chatCompletion = client.chat().completions().create(params);
+            String command = chatCompletion.choices().get(0).message().content().orElse("No command generated");
+            
+            // Ensure the command starts with a slash
+            if (!command.startsWith("/") && !command.startsWith("Error:")) {
+                command = "/" + command;
+            }
+            
+            return command;
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Error generating Minecraft command", e);
+            return "Error: Failed to generate command. Please try again later.";
+        }
+    }
+    
+    /**
      * Checks if a player is rate limited
      * @param playerUUID The UUID of the player to check
      * @return true if the player is currently rate limited

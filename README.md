@@ -1,14 +1,16 @@
 # MinecraftGPTCommenter
 
-A Minecraft plugin that uses OpenAI's GPT models to generate dynamic and contextual responses to in-game events. The plugin can interact with players by responding to chat messages, generating welcome messages, and creating witty death messages.
+A Minecraft plugin that uses OpenAI's GPT models to generate dynamic and contextual responses to in-game events. The plugin can interact with players by responding to chat messages, generating welcome messages, creating witty death messages, and celebrating their achievements.
 
 ## Features
 
 - **Interactive Chat**: Players can chat with the AI using commands
+- **Command Generation**: Convert natural language descriptions into Minecraft commands
 - **Context-Aware**: Responses are informed by player inventory, location, and chat history
 - **Multiple Event Handlers**:
   - Welcome messages when players join
   - Humorous commentary on player deaths
+  - Congratulatory comments on player achievements
   - Responses to player chat messages
 - **Admin Commands**: Easy management with reload, status, and reset commands
 - **Rate Limiting**: Prevents excessive API usage
@@ -37,7 +39,7 @@ openai:
   # Your OpenAI API key (can also be set via OPENAI_API_KEY environment variable)
   api_key: "YOUR_OPENAI_API_KEY"
   # Model to use for chat completions (e.g., gpt-4o, gpt-4-turbo, gpt-3.5-turbo)
-  model: "gpt-4.1-nano"
+  model: "gpt-5.6-luna"
   # Temperature controls randomness (0.0-2.0, higher is more random)
   temperature: 1.2
   # Maximum number of tokens in the response
@@ -66,8 +68,12 @@ features:
   player_join: true
   # Generate funny death messages when players die
   player_death: true
+  # Generate congratulatory messages when players earn achievements
+  player_achievement: true
   # Respond to player chat messages
   player_chat: true
+  # Generate Minecraft commands from natural language
+  command_generation: true
 ```
 
 ## Commands
@@ -76,6 +82,8 @@ features:
 
 - `/chatgpt <message>` - Send a message to the AI
 - `/chat <message>` - Alias for chatgpt command
+- `/cmd <description>` - Generate a Minecraft command from natural language
+- `/minecraft <description>` - Alias for cmd command
 
 ### Admin Commands
 
@@ -87,6 +95,7 @@ features:
 ## Permissions
 
 - `minecraftgptcommenter.chat` - Allow use of chat commands (default: true)
+- `minecraftgptcommenter.command` - Allow use of command generation (default: true)
 - `minecraftgptcommenter.admin` - Allow use of admin commands (default: op)
 
 ## Building From Source

@@ -5,7 +5,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Level;
 import rs.meine.commands.AdminCommandExecutor;
 import rs.meine.commands.ChatCommandExecutor;
+import rs.meine.commands.CommandGeneratorExecutor;
 import rs.meine.config.ConfigManager;
+import rs.meine.listeners.PlayerAchievementListener;
 import rs.meine.listeners.PlayerChatListener;
 import rs.meine.listeners.PlayerDeathListener;
 import rs.meine.listeners.PlayerJoinListener;
@@ -43,6 +45,11 @@ public class Main extends JavaPlugin {
                 getLogger().info("Player death listener registered");
             }
             
+            if (configManager.isFeatureEnabled("player_achievement")) {
+                getServer().getPluginManager().registerEvents(new PlayerAchievementListener(this, openAIService), this);
+                getLogger().info("Player achievement listener registered");
+            }
+
             if (configManager.isFeatureEnabled("player_chat")) {
                 getServer().getPluginManager().registerEvents(new PlayerChatListener(this, openAIService), this);
                 getLogger().info("Player chat listener registered");
@@ -69,6 +76,14 @@ public class Main extends JavaPlugin {
         ChatCommandExecutor chatCommandExecutor = new ChatCommandExecutor(this, openAIService);
         registerCommand("chatgpt", chatCommandExecutor);
         registerCommand("chat", chatCommandExecutor);
+        
+        // Command generator
+        if (configManager.isFeatureEnabled("command_generation")) {
+            CommandGeneratorExecutor commandGeneratorExecutor = new CommandGeneratorExecutor(this, openAIService);
+            registerCommand("cmd", commandGeneratorExecutor);
+            registerCommand("minecraft", commandGeneratorExecutor);
+            getLogger().info("Command generator commands registered");
+        }
         
         // Admin commands
         AdminCommandExecutor adminCommandExecutor = new AdminCommandExecutor(this, configManager, openAIService);
